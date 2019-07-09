@@ -16,6 +16,19 @@
                     <div class="card-body">
                         <p class="cad-text" th:text="${tarefa.descricao}"></p>
                         <p class="cad-text" th:text="${'Data de Expiração:' + #dates.format(tarefa.dataExpiracao, 'dd/MM/yyyy')}"></p>
+                        <p class="cad-text" style="color : rgb(9, 245, 9);" th:if="${tarefa.concluida}">Concluída</p>
+                        <div th:unless="${tarefa.concluida}"> <!--Se não atender a condição-->
+                            <p class="cad-text" style="color : rgb(226, 226, 5);" th:if="${tarefa.dataExpiracao.after(new java.util.Date())}">Em dia</p>
+                            <p class="cad-text" style="color : rgb(241, 19, 19);" th:if="${tarefa.dataExpiracao.before(new java.util.Date())}">Atrasada</p>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-light">
+                        <p>
+                            <!-- A url utilizada no @{/url} é a definda no controller da ação-->
+                            <a th:href="@{/tarefas/alterar/{id}(id=${tarefa.id})}">Alterar</a> 
+                            <a th:href="@{/tarefas/excluir/{id}(id=${tarefa.id})}">Excluir</a>
+                            <a th:if="${!tarefa.concluida}" th:href="@{/tarefas/concluir/{id}(id=${tarefa.id})}">Concluir</a>
+                        </p>
                     </div>
                 </div>
             </div>
