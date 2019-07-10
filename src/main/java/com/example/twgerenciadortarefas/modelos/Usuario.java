@@ -1,10 +1,14 @@
 package com.example.twgerenciadortarefas.modelos;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -31,6 +35,9 @@ public class Usuario {
     @NotNull(message = "A senha é obrigatória.")
     private String password;
 
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY) //lazy so preenche a lista de tarefas quando explicitado
+    private List<Tarefa> tarefas;
+    
     public Long getId() {
         return id;
     }
@@ -53,6 +60,14 @@ public class Usuario {
 
     public void setpassword(String password) {
         this.password = password;
+    }
+
+    public List<Tarefa> getTarefas() {
+        return tarefas;
+    }
+
+    public void setTarefas(List<Tarefa> tarefas) {
+        this.tarefas = tarefas;
     }
 
     
