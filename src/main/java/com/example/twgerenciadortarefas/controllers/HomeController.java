@@ -16,5 +16,4 @@ public class HomeController{
         mv.addObject("mensagem", "Mensagem do controller");
         return mv;
     }   
-
 }
